@@ -20,37 +20,7 @@ public class MyArrayList<E> implements Serializable, Cloneable, RandomAccess {
 	private Object[] elementData;
 // ---------------------------------------------------------------
 public static void main(String[] args) {
-	MyArrayList<String> strlist = new MyArrayList<String>();
-	String newline = System.lineSeparator();
-	System.out.print(Arrays.toString(strlist.elementData));	
-	for (int i = 0; i < 10; i++) {
-		strlist.add("Hej");
-	}
-	strlist.add(5, "Tjena!");
-	System.out.print(newline + Arrays.toString(strlist.elementData));
-	System.out.print(newline + strlist.size());
-	System.out.print(newline + strlist.isEmpty());
-	strlist.clear();
-	System.out.print(newline + Arrays.toString(strlist.elementData));
-	System.out.print(newline + strlist.isEmpty());
-	System.out.print(Arrays.toString(strlist.elementData));	
-	for (int i = 0; i < 12; i++) {
-		strlist.add("Hej");
-	}
-	System.out.print(newline + strlist.get(5));
-	strlist.set(4, "Fylld!");
-	System.out.print(newline + Arrays.toString(strlist.elementData));
-	strlist.remove(0);
-	strlist.removeRange(7, 9);
-	System.out.print(newline + Arrays.toString(strlist.elementData));
-	System.out.print(newline + strlist.indexOf("Fylld!"));
-	System.out.print(newline + strlist.contains("Fylld!"));
-	System.out.print(newline);
-	strlist.clone();
-	System.out.print(newline + Arrays.toString(strlist.toArray()));
-
-
-
+	
 }
 // ---------------------------------------------------------------
 public MyArrayList(int initialCapacity) {
@@ -121,7 +91,7 @@ public void add(int index, E element) {
 	size++;
 }
 public boolean add(E e) {
-	add(elementData.length - elementData.length, e);
+	add(size , e);
 return false; 
 }
 // -- 4 --
@@ -145,7 +115,7 @@ public E remove(int index) {
         throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
     }
 	elementData[index] = null;
-	return (E) elementData;
+	return (E) this.elementData[index];
 }
 protected void removeRange(int fromIndex, int toIndex) {
 	if (fromIndex < 0 || toIndex >= size) {
@@ -158,7 +128,7 @@ protected void removeRange(int fromIndex, int toIndex) {
 // -- 6 --
 public int indexOf(Object o) {
 	for (int i = 0; i < size; i++) {
-		if (elementData[i] == o) {
+		if (elementData[i] != null && elementData[i].equals(o)) {
 			return i;
 		} 
 	}
@@ -167,9 +137,9 @@ public int indexOf(Object o) {
 }
 public boolean remove(Object o) {
 	for (int i = 0; i < size; i++) {
-		if (elementData[i] == o) {
-			elementData[i] = null;
-			return true;
+		if (elementData[i] != null && elementData[i].equals(o)) {
+            elementData[i] = null;
+            return true;
 		} 
 	}
 	return false;
